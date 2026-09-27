@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nexora — Welcome</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --ink: #edf4ff;
+      --muted: #91a1be;
+      --line: rgba(183, 205, 255, 0.16);
+      --panel: rgba(12, 18, 40, 0.72);
+      --blue: #6c7cff;
+      --aqua: #55e7d1;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      font-family: Manrope, sans-serif;
+      background: #070b1b;
+      overflow: hidden;
+    }
+
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(2px);
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .orb.one {
+      width: 530px;
+      height: 530px;
+      background: radial-gradient(circle, rgba(85, 231, 209, 0.25), transparent 66%);
+      top: -250px;
+      left: -130px;
+    }
+
+    .orb.two {
+      width: 650px;
+      height: 650px;
+      background: radial-gradient(circle, rgba(108, 124, 255, 0.3), transparent 65%);
+      right: -260px;
+      bottom: -300px;
+    }
+
+    .grid {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.3;
+      background-image:
+        linear-gradient(rgba(143, 161, 255, 0.12) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(143, 161, 255, 0.12) 1px, transparent 1px);
+      background-size: 52px 52px;
+      mask-image: radial-gradient(ellipse at center, black, transparent 75%);
+    }
+
+    .page {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 28px;
+      position: relative;
+    }
+
+    .shell {
+      width: min(100%, 1040px);
+      min-height: 620px;
+      display: grid;
+      grid-template-columns: 1.02fr 0.98fr;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 28px 90px rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(22px);
+    }
+
+    .intro {
+      padding: 48px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: linear-gradient(145deg, rgba(26, 37, 92, 0.65), rgba(13, 20, 47, 0.45));
+    }
+
+    .intro::after {
+      content: "";
+      width: 310px;
+      height: 310px;
+      border: 1px solid rgba(136, 150, 255, 0.25);
+      border-radius: 50%;
+      position: absolute;
+      right: -130px;
+      bottom: -110px;
+      box-shadow:
+        0 0 0 48px rgba(136, 150, 255, 0.05),
+        0 0 0 96px rgba(136, 150, 255, 0.035);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+    }
+
+    .brand-mark {
+      width: 28px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+      border-radius: 9px;
+      color: #081121;
+      background: linear-gradient(135deg, var(--aqua), #b1ffe6);
+      box-shadow: 0 0 25px rgba(85, 231, 209, 0.35);
+    }
+
+    .eyebrow {
+      color: var(--aqua);
+      font: 500 11px "DM Mono", monospace;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      margin: 0 0 16px;
+    }
+
+    h1 {
+      font-size: clamp(2.45rem, 5vw, 4.2rem);
+      line-height: 1.04;
+      letter-spacing: -0.065em;
+      margin: 0;
+      max-width: 480px;
+    }
+
+    h1 em {
+      font-style: normal;
+      color: #aeb8ff;
+    }
+
+    .intro-copy {
+      color: #adbad3;
+      line-height: 1.7;
+      font-size: 14px;
+      max-width: 390px;
+      margin: 22px 0 0;
+    }
+
+    .mini-stats {
+      display: flex;
+      gap: 12px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .stat {
+      min-width: 120px;
+      padding: 13px 15px;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      background: rgba(5, 10, 28, 0.3);
+    }
+
+    .stat b {
+      display: block;
+      font-size: 16px;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    .auth {
+      padding: 42px 52px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .switch {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding: 4px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(0, 0, 0, 0.15);
+      margin-bottom: 31px;
+    }
+
+    .switch button {
+      color: var(--muted);
+      background: transparent;
+      border: 0;
+      padding: 10px;
+      border-radius: 8px;
+      font: 600 13px Manrope;
+      cursor: pointer;
+      transition: 0.25s;
+    }
+
+    .switch button.active {
+      color: var(--ink);
+      background: rgba(114, 130, 255, 0.22);
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.18);
+    }
+
+    .form { display: none; }
+
+    .form.active {
+      display: block;
+      animation: rise 0.35s ease;
+    }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: none; }
+    }
+
+    .form-title {
+      font-size: 25px;
+      letter-spacing: -0.045em;
+      margin: 0 0 7px;
+    }
+
+    .form-subtitle {
+      color: var(--muted);
+      margin: 0 0 25px;
+      font-size: 13px;
+    }
+
+    .field { margin: 15px 0; }
+
+    .field label {
+      display: block;
+      margin: 0 0 8px;
+      font-size: 11px;
+      color: #c7d2e8;
+      font-weight: 700;
+    }
+
+    .field input {
+      width: 100%;
+      border: 1px solid var(--line);
+      outline: 0;
+      color: var(--ink);
+      background: rgba(3, 7, 21, 0.36);
+      border-radius: 11px;
+      padding: 13px 14px;
+      font: 13px Manrope;
+      transition: 0.2s;
+    }
+
+    .field input::placeholder { color: #61708c; }
+
+    .field input:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 4px rgba(108, 124, 255, 0.13);
+    }
+
+    .form-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 18px 0 22px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .form-row a,
+    .terms a {
+      color: #aeb9ff;
+      text-decoration: none;
+    }
+
+    .remember {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .remember input { accent-color: var(--blue); }
+
+    .primary {
+      width: 100%;
+      padding: 14px;
+      border: 0;
+      border-radius: 11px;
+      cursor: pointer;
+      color: white;
+      font: 700 13px Manrope;
+      background: linear-gradient(100deg, #6474fb, #7280ff 50%, #5bdccc);
+      box-shadow: 0 10px 25px rgba(89, 109, 255, 0.28);
+      transition: 0.2s;
+    }
+
+    .primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 30px rgba(89, 109, 255, 0.4);
+    }
+
+    .or {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #6e7a91;
+      font: 10px "DM Mono";
+      margin: 22px 0;
+    }
+
+    .or::before,
+    .or::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--line);
+    }
+
+    .social { display: flex; gap: 10px; }
+
+    .social button {
+      flex: 1;
+      padding: 11px;
+      color: #d7e0f1;
+      background: rgba(255, 255, 255, 0.035);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      cursor: pointer;
+      font: 600 12px Manrope;
+    }
+
+    .terms {
+      margin: 16px 0 0;
+      color: var(--muted);
+      font-size: 10px;
+      line-height: 1.5;
+      text-align: center;
+    }
+
+    @media (max-width: 760px) {
+      body { overflow: auto; }
+      .page { padding: 16px; }
+      .shell { grid-template-columns: 1fr; }
+      .intro { min-height: 330px; padding: 30px; }
+      .mini-stats { display: none; }
+      .auth { padding: 32px 28px; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="orb one"></div>
+  <div class="orb two"></div>
+  <div class="grid"></div>
+
+  <main class="page">
+    <section class="shell">
+      <aside class="intro">
+        <div class="brand">
+          <span class="brand-mark">✦</span>
+          NEXORA
+        </div>
+
+        <div>
+          <p class="eyebrow">The next dimension</p>
+          <h1>Make space for <em>what’s next.</em></h1>
+          <p class="intro-copy">
+            A focused home for your ideas, projects, and the people helping you build them.
+          </p>
+        </div>
+
+        <div class="mini-stats">
+          <div class="stat">
+            <b>12.8k</b>
+            <span>active creators</span>
+          </div>
+          <div class="stat">
+            <b>99.9%</b>
+            <span>uptime, always</span>
+          </div>
+        </div>
+      </aside>
+
+      <section class="auth">
+        <div class="switch">
+          <button class="active" data-form="signin">Sign in</button>
+          <button data-form="signup">Create account</button>
+        </div>
+
+        <form id="signin" class="form active">
+          <h2 class="form-title">Welcome back</h2>
+          <p class="form-subtitle">Enter your details to continue your journey.</p>
+
+          <div class="field">
+            <label>EMAIL ADDRESS</label>
+            <input type="email" placeholder="you@example.com" required />
+          </div>
+
+          <div class="field">
+            <label>PASSWORD</label>
+            <input type="password" placeholder="••••••••" required />
+          </div>
+
+          <div class="form-row">
+            <label class="remember">
+              <input type="checkbox" />
+              Keep me signed in
+            </label>
+            <a href="#">Forgot password?</a>
+          </div>
+
+          <button class="primary" type="submit">Enter Nexora →</button>
+
+          <div class="or">OR CONTINUE WITH</div>
+
+          <div class="social">
+            <button type="button">Google</button>
+            <button type="button">Apple</button>
+          </div>
+        </form>
+
+        <form id="signup" class="form">
+          <h2 class="form-title">Start your orbit</h2>
+          <p class="form-subtitle">Create your account — it takes less than a minute.</p>
+
+          <div class="field">
+            <label>FULL NAME</label>
+            <input type="text" placeholder="Alex Morgan" required />
+          </div>
+
+          <div class="field">
+            <label>EMAIL ADDRESS</label>
+            <input type="email" placeholder="you@example.com" required />
+          </div>
+
+          <div class="field">
+            <label>CREATE PASSWORD</label>
+            <input type="password" placeholder="8+ characters" required />
+          </div>
+
+          <button class="primary" type="submit">Create my account →</button>
+
+          <p class="terms">
+            By joining, you agree to our <a href="#">Terms</a> and
+            <a href="#">Privacy Policy</a>.
+          </p>
+        </form>
+      </section>
+    </section>
+  </main>
+
+  <script>
+    const buttons = document.querySelectorAll("[data-form]");
+    const forms = document.querySelectorAll(".form");
+
+    buttons.forEach((button) => {
+      button.addEventListener("click", () => {
+        buttons.forEach((item) =>
+          item.classList.toggle("active", item === button)
+        );
+
+        forms.forEach((form) =>
+          form.classList.toggle("active", form.id === button.dataset.form)
+        );
+      });
+    });
+
+    forms.forEach((form) => {
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const button = form.querySelector(".primary");
+        const original = button.textContent;
+
+        button.textContent = "You’re all set!";
+
+        setTimeout(() => {
+          button.textContent = original;
+        }, 1800);
+      });
+    });
+  </script>
+</body>
+</html>
