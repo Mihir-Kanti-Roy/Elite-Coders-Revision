@@ -1,0 +1,4 @@
+1. post request from frontend to backend and vice versa 
+2. bcryptjs to encrypt password and sensitive info
+3. authentication using middleware (hard)
+4. using cookies so that login is remembered by the device.
